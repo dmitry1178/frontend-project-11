@@ -1,64 +1,88 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-const isProduction = process.env.NODE_ENV == "production";
-
-const stylesHandler = isProduction
-  ? MiniCssExtractPlugin.loader
-  : "style-loader";
+const isProduction = process.env.NODE_ENV === 'production';
 
 const config = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index_bundle.js',
   },
   devServer: {
+    static: path.resolve(__dirname, 'dist'),
+    hot: true,
+    host: 'localhost',
+    port: 8080,
     open: true,
-    host: "localhost",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "index.html",
+      template: 'index.html',
     }),
-
+    new MiniCssExtractPlugin({
+      filename: 'styles.css',
+    }),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/i,
-        loader: "babel-loader",
-      },
-      {
-        test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [stylesHandler, "css-loader", "sass-loader"],
-      },
-      {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: "asset",
+        type: 'asset',
       },
-
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: () => [
+                  autoprefixer,
+                ],
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['source-map-loader'],
+      },
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],
+  },
+  resolve: {
+    extensions: ['*', '.js'],
   },
 };
 
 module.exports = () => {
   if (isProduction) {
-    config.mode = "production";
-
-    config.plugins.push(new MiniCssExtractPlugin());
+    config.mode = 'production';
+    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
   } else {
-    config.mode = "development";
+    config.mode = 'development';
   }
   return config;
 };
