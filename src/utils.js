@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const addProxy = (url) => {
   const urlWithProxy = new URL('/get', 'https://allorigins.hexlet.app');
   urlWithProxy.searchParams.set('url', url);
