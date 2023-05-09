@@ -3,10 +3,10 @@
 [![Github Check](https://github.com/dmitry1178/frontend-project-11/actions/workflows/actions.yml/badge.svg)](https://github.com/dmitry1178/frontend-project-11/actions/workflows/actions.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5d312826880cfba98a0c/maintainability)](https://codeclimate.com/github/dmitry1178/frontend-project-11/maintainability)
 ***
-# RSS агрегатор
-### Описание:
-RSS — специализированный формат, предназначенный для описания лент новостей, анонсов статей и других материалов. Это наиболее простой способ для сайтов (обычно, блогов) дать возможность пользователям подписываться на изменения. Для этого используются специальные сервисы, называемые RSS-агрегаторами. Эти сервисы умеют опрашивать RSS-ленты сайтов на наличие новых постов и показывают их в удобном виде, отмечая прочитанное.
+# RSS aggregator
+### Description:
+RSS is a specialized format for describing news feeds, article announcements, and other materials. This is the easiest way for websites (usually blogs) to allow users to subscribe to changes. For this, special services called RSS aggregators are used. These services are able to poll the RSS feeds of sites for new posts and show them in a convenient way, marking what they have read.
 
-RSS агрегатор - сервис для агрегации RSS-потоков, с помощью которых удобно читать разнообразные источники, например, блоги. Он позволяет добавлять неограниченное количество RSS-лент, сам их обновляет и добавляет новые записи в общий поток.
+RSS aggregator - a service for aggregating RSS feeds, with which it is convenient to read a variety of sources, such as blogs. It allows you to add an unlimited number of RSS feeds, updates them itself and adds new entries to the general feed.
 ***
-Ссылка на приложение: https://frontend-project-11-one-kappa.vercel.app/
+App link: https://frontend-project-11-one-kappa.vercel.app/

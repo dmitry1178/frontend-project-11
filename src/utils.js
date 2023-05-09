@@ -24,26 +24,17 @@ const changeLinkStyle = (postsDiv, visited) => {
 };
 
 const addNews = (oldColl, newColl) => {
-  const newNews = newColl.filter((obj, index) => {
-    if (oldColl[index] === undefined) return false;
-    return obj.title !== oldColl[index].title;
-  });
-  const updated = [...oldColl, ...newNews];
-  return _.uniqBy(updated, 'title');
+  const existingTitles = oldColl.map((obj) => obj.title);
+  const newPosts = newColl.filter((obj) => !existingTitles.includes(obj.title));
+  return [...oldColl, ...newPosts];
 };
 
-const updatePosts = (oldPosts, newPosts) => {
-  const updatedPosts = [];
-  oldPosts.forEach((old, index) => {
-    const controlId = old[0].feedId;
-    const feedIdNew = newPosts[index][0].feedId;
-    if (controlId === feedIdNew) {
-      const updated = addNews(old, newPosts[index]);
-      updatedPosts.push(updated);
-    }
-  });
-  return updatedPosts;
-};
+const updatePosts = (oldPosts, newPosts) => oldPosts.map((old, index) => {
+  if (old[0].feedId === newPosts[index][0].feedId) {
+    return addNews(old, newPosts[index]);
+  }
+  return old;
+});
 
 export {
   addProxy,

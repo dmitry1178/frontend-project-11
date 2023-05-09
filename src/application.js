@@ -102,7 +102,7 @@ export default () => {
           });
       };
 
-      setTimeout(() => getNewsUpdate(watchedState.data.feeds), timeoutPostsUpdating);
+      getNewsUpdate(watchedState.data.feeds);
 
       elements.form.addEventListener('submit', async (e) => {
         e.preventDefault();
